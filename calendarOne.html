@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ruan Barroso">
+    <title>Calendar</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color:rgb(19, 87, 87); 
+}
+.semana{
+    width: 70px;
+    box-shadow: inset 1px 3px 4px black;
+    height: 60px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    line-height: 60px;
+    text-align: center;
+    font-size: 24px;
+    font-family: algerian;
+}
+.semana{
+    background-color:grey;
+    font-weight: bolder;
+}
+.semana:hover{
+    background-color:rgb(102, 101, 101);
+    cursor: pointer;
+}
+.dias{
+    width: 70px;
+    box-shadow: inset 0 0 4px black;
+    height: 60px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.dias{
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.dias:hover{
+    cursor: pointer;
+}
+.dias:nth-child(even){
+    background-color: rgb(50, 212, 185);
+}
+.dias:nth-child(odd){
+    background-color: rgb(85, 250, 222);
+}
+.dias:nth-child(even):hover{
+    background-color: rgb(85, 250, 222);
+}
+.dias:nth-child(odd):hover{
+    background-color: rgb(50, 212, 185);
+}
+span{
+    text-align: center;
+    font-size: 40px;
+    font-family: calibri;
+    color: white;
+    text-shadow: 4px 4px 4px black;
+}
+span article{
+    font-size: 60px;
+}
+.botoes{
+    width:99%;
+    margin: 20px auto;
+    text-align: center;
+}
+.botoes input{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-shadow: 1px 1px 1px white;
+    font-weight: bolder;
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: inset 0 0 12px black, 0 0 12px black;
+    background-color: rgb(100, 235, 212);
+    border: 1px solid white;
+}
+.botoes input:hover{
+    border: 1px solid black;
+    background-color: rgb(52, 214, 187);
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s;
+}
+.quadrado{
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    height: 420px;
+    flex-wrap: wrap;
+    padding: 10px;
+    box-shadow: 0 0 12px white;
+    background-color: rgb(30, 139, 121);
+}
+.menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.9;
+    z-index: 99 !important;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-evenly;
+}
+.container{
+    margin: 0 auto;
+    z-index: 0;
+    transition: all 1s;
+}
+.meses {
+    opacity: 1 !important;
+    width: calc(16% - 20px);
+    float: left;
+    height: 150px;
+    background-color: rgb(104, 241, 219);
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 0.5;
+    box-shadow: 4px 4px 2px rgb(13, 82, 70);
+    text-align: center;
+    font-size: 50px;
+    color: grey;
+}
+.count{
+    display: block;
+}
+.meses label{
+    font-size: 42px;
+    text-align: center;
+    background-color: rgb(21, 139, 120);
+    width: 100%;
+    display: block;
+    color: black;
+}
+.meses label:hover{
+    cursor:pointer;
+}
+.meses:hover{
+    cursor:pointer;
+    background-color: rgb(42, 143, 126);
+    box-shadow: 4px 4px 2px white;
+    transition: all 0.5s;
+}
+.count span{
+    font-size: 40px;
+}
+.count article{
+    font-size: 50px;
+}
+.count input{
+    font-size: 30px;
+    padding: 5px;
+    border: 2px solid rgb(42, 143, 126);
+}
+.count input[type=text]{
+    font-weight: bolder;
+    width: 92%;
+    text-align: center;
+}
+.count input[type=button]{
+    color: black;
+    border: 2px solid rgb(78, 94, 91);
+    width: 95%;
+}
+.count input[type=button]:hover{
+    cursor: pointer;
+    color: rgb(20, 100, 87);
+}
+ /*Ruan Barroso*/
+</style>
+<body>
+    <section class="menu">
+            <div id="0"  class="meses" onclick="callMonth(this)"><label for="0">Janeiro</label></div>
+            <div id="1"  class="meses" onclick="callMonth(this)"><label for="1">Fevereiro</label></div>
+            <div id="2"  class="meses" onclick="callMonth(this)"><label for="2">Março</label></div>
+            <div id="3"  class="meses" onclick="callMonth(this)"><label for="3">Abril</label></div>
+            <div id="4"  class="meses" onclick="callMonth(this)"><label for="4">Maio</label></div>
+            <div id="5"  class="meses" onclick="callMonth(this)"><label for="5">Junho</label></div>
+            <div id="6"  class="meses" onclick="callMonth(this)"><label for="6">Julho</label></div>
+            <div id="7"  class="meses" onclick="callMonth(this)"><label for="7">Agosto</label></div>
+            <div id="8"  class="meses" onclick="callMonth(this)"><label for="8">Setembro</label></div>
+            <div id="9"  class="meses" onclick="callMonth(this)"><label for="9">Outubro</label></div>
+            <div id="10" class="meses" onclick="callMonth(this)"><label for="10">Novembro</label></div>
+            <div id="11" class="meses" onclick="callMonth(this)"><label for="11">Dezembro</label></div>
+            <section class="count">
+                    <span><h2>Setembro</h2><article>2018</article></span>
+                    <input type="text" title="####" id="searchYeah" placeholder="#### - Ano qualquer =D"><input type="button" value="Ir!!" onclick="search()">
+                </section>
+    </section>
+    <main>
+        <span><h2>Setembro</h2><article>2018</article></span>
+            <section class="quadrado">                                                                                                                                                    </div>
+            </section>
+            <section class="botoes">
+                <input id="botao0" type="button" value="Anterior" onclick="mesAnterior();">  
+                <input id="botao1" type="button" value="Menu" onclick="menu()">  
+                <input id="botao2" type="button" value="Próximo" onclick="proximoMes();">   
+            </section>
+    </main>
+<!--Ruan Barroso-->
+</body>
+<script>
+var meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro","Sem mês aqui hahah"];
+var semana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"];
+var semanaMenu = ["D","S","T","Q","Q","S","S"];
+data = new Date();
+mes = data.getMonth();
+ano = data.getFullYear();
+dias = data.getDate();
+var corpo = document.getElementsByClassName("quadrado")[0];
+window.onload = function(){
+    alterarDiasMes(data.getMonth());
+    criarElementosSemana();
+    preencherSemana();
+    mudarTitulo(data.getMonth(),data.getFullYear());
+    criarElementos(alterarDiasMes(data.getMonth()));
+    var div = document.querySelectorAll(".dias")[0];
+    div.style.display = "none";
+    preencherDias(alterarDiasMes(data.getMonth()));   
+}
+
+function criarElementos(dias){ // elementos dias do mes
+     for(var i=0;i<=38;i++){
+     var div = document.createElement("div");
+     div.setAttribute("class","dias");
+     corpo.appendChild(div);
+     }
+}
+function preencherDias(dias){
+    verificarDiasInicio();
+    week = primeiroDia();
+    num = week;
+    for(var i=0;i<=dias;i++){
+        if(week==1){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;        
+        }else if(week==2){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }else if(week==3){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }else if(week==4){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }else if(week==5){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }else if(week==6){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }else if(week==0){
+        elemento = document.getElementsByClassName("dias")[num];
+        elemento.innerHTML = i;    
+        }
+        num++;
+    }    
+}
+function alterarDiasMes(mes){
+    switch(mes){
+        case 0: 
+        dias = 31;
+        break;
+        case 1: 
+        if(anoBissexto(data.getFullYear())){
+        dias = 29;
+        }else{
+        dias = 28;
+        }
+        break;
+        case 2: 
+        dias = 31;
+        break;
+        case 3: 
+        dias = 30;
+        break;
+        case 4: 
+        dias = 31;
+        break;
+        case 5: 
+        dias = 30;
+        break;
+        case 6: 
+        dias = 31;
+        break;
+        case 7: 
+        dias = 31;
+        break;
+        case 8: 
+        dias = 30;
+        break;
+        case 9: 
+        dias = 31;
+        break;
+        case 10: 
+        dias = 30;
+        break;
+        case 11: 
+        dias = 31;
+        break;
+    }
+    return dias;
+}
+function primeiroDia(){
+data.setDate(1);
+//console.log(data.getMonth());
+week = data.getDay();
+return week;
+}
+function criarElementosSemana(){ // elementos da semana
+     for(var i=0;i<7;i++){
+     var div = document.createElement("header");
+     div.setAttribute("class","semana");
+     corpo.appendChild(div);
+     }
+}
+function preencherSemana(){
+    for(var i=0;i<7;i++){
+        elemento = document.getElementsByClassName("semana")[i];
+        elemento.innerHTML = semanaMenu[i];
+    }   
+}
+function mostrarElementos(index){
+    for(var i=num;i<=37;i++){
+        var div = document.querySelectorAll(".dias")[i];
+        div.style.display = "block";
+    }
+}
+function configElementos(num,index){
+    for(var i=num;i<=37;i++){
+        var div = document.querySelectorAll(".dias")[i];
+        div.style.display = "block";
+    }
+    for(var j=index;j<=37;j++){
+        var div = document.querySelectorAll(".dias")[j];
+        div.style.display = "none";
+    }
+
+}
+function configElementosPrimeiros(index,num){
+    for(var j=index;j<7;j++){
+        var div = document.querySelectorAll(".dias")[j];
+        div.style.opacity = 0;
+    }
+    for(var i=num;i<7;i++){
+        var div = document.querySelectorAll(".dias")[i];
+        div.style.opacity = 1;
+    }
+
+}
+function verificarDiasInicio(){
+    week = primeiroDia();
+    var div = document.querySelectorAll(".dias")[38];
+    div.style.display = "none";
+    console.log(week);
+    if(week==6){    
+        if(dias==31){ // terminado !!!
+            mostrarElementos(28);
+        }else if(dias==30){
+            configElementos(28,37);
+        }else if(dias==29){
+            configElementos(28,36);
+        }else if(dias==28){
+            configElementos(28,35);
+        }           
+        configElementosPrimeiros(1,7);
+    }else if(week==5){  //terminado
+        if(dias==31){
+            configElementos(28,37);
+        }else if(dias==30){
+            configElementos(28,36);
+        }else if(dias==29){
+            configElementos(28,35);
+        }else if(dias==28){
+            configElementos(28,34);
+        }  
+        configElementosPrimeiros(1,6);
+    }else if(week==4){ //terminado
+        if(dias==31){
+            configElementos(28,36);
+        }else if(dias==30){
+            configElementos(28,35);
+        }else if(dias==29){
+            configElementos(28,34);
+        }else if(dias==28){
+            configElementos(28,33);
+        } 
+        configElementosPrimeiros(1,5); 
+    }else if(week==3){ // terminado!!
+        if(dias==31){
+            configElementos(28,35);
+        }else if(dias==30){
+            configElementos(28,34);
+        }else if(dias==29){
+            configElementos(28,33);
+        }else if(dias==28){
+            configElementos(28,32);
+        } 
+        configElementosPrimeiros(1,4);
+    }else if(week==2){ // terminado!!
+        if(dias==31){
+            configElementos(28,34);
+        }else if(dias==30){
+            configElementos(28,33);
+        }else if(dias==29){
+            configElementos(28,31);
+        }else if(dias==28){
+            configElementos(28,30);
+        }  
+        configElementosPrimeiros(1,3);
+    }else if(week==1){ //terminado
+        if(dias==31){
+            configElementos(28,33);
+        }else if(dias==30){
+            configElementos(28,32);
+        }else if(dias==29){
+            configElementos(28,31);           
+        }else if(dias==28){
+            configElementos(28,30);
+        }  
+        configElementosPrimeiros(2,2);
+    }else if(week==0){ //terminado
+        if(dias==31){
+            configElementos(28,32);
+        }else if(dias==30){
+            configElementos(28,31);
+        }else if(dias==29){
+            configElementos(28,30);
+        }else if(dias==28){
+            configElementos(28,29);
+        }  
+        configElementosPrimeiros(0,0);
+    }   
+}
+function limparDias(){
+    for(var i=1;i<=38;i++){
+        elemento = document.getElementsByClassName("dias")[i];
+        elemento.innerHTML = " ";
+    }   
+}
+function mudarTitulo(mes){
+    texto = "";
+    if(anoBissexto(data.getFullYear())){
+        texto = ", este ano é Bissexto!"
+    }
+    titulo = document.querySelectorAll("h2")[0];
+    titulo.innerHTML = meses[mes];   
+    topo = document.querySelectorAll("article")[0];
+    topo.innerHTML = data.getFullYear() + this.texto;   
+    titulo = document.querySelectorAll("h2")[1];
+    titulo.innerHTML = meses[mes];   
+    topo = document.querySelectorAll("article")[1];
+    topo.innerHTML = data.getFullYear() + this.texto;   
+    //console.log(data.getFullYear()); 
+}
+function anoBissexto(ano){
+    if(ano%4==0 && ano%100!=0 || ano%400==0){
+        return true;
+    }
+}
+function nextYear(ano){
+    ano = ano + 1;
+    data.setFullYear(ano);
+    //alert(data.getFullYear());
+}
+
+function backYear(ano){
+    ano = ano - 1;
+    data.setFullYear(ano);
+    //alert(data.getFullYear());
+}
+function nextMes(mes){
+    mes = mes + 1;
+    data.setMonth(mes);
+}
+function backMes(mes){
+    mes = mes - 1;
+    data.setMonth(mes);
+}
+function menu(){
+    pai = document.querySelector(".menu");
+    pai.style.display = "flex";
+     ff = document.querySelector("section");
+    ff.style.opacity = 1; 
+    }
+
+function mesAnterior(){
+for(var i=0;i<12;i++){
+    if(i==data.getMonth()){
+        mes = i;
+    }
+}  
+backMes(mes);
+if(mes<0){
+    backYear(data.getFullYear());
+    mes = 11;
+    data.setMonth(11);
+}
+limparDias();
+alterarDiasMes(data.getMonth());
+mudarTitulo(data.getMonth());
+verificarDiasInicio();
+preencherDias(dias);
+}
+ // -------------------------------------------------------$!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function proximoMes(){ // botao proximo
+for(var i=0;i<12;i++){
+    if(i==data.getMonth()){
+    mes = i;
+    }
+}
+nextMes(mes);
+if(mes>11){
+nextYear(data.getFullYear());
+mes = 0;
+data.setMonth(0);
+}
+limparDias();
+alterarDiasMes(data.getMonth());
+mudarTitulo(data.getMonth());
+verificarDiasInicio();
+preencherDias(dias);
+}
+
+window.onclick = function(e){
+    var menu = document.querySelector(".menu");
+    if(e.target === menu){
+        menu.style.display = "none";
+    }else{
+        //console.log("outra coisa");
+        /* menu.style.display = "none"; */
+    }
+}
+function search(){
+    var element = document.getElementById("searchYeah");
+    if(element.value==""){
+       //alert("Não esqueça de preencher =D");
+    }
+    var ano = element.value;
+    ano = parseInt(ano);
+    if(!isNaN(ano)){
+        data.setFullYear(ano);
+        data.setMonth(0);
+        limparDias();
+        alterarDiasMes(data.getMonth());
+        mudarTitulo(data.getMonth());
+        verificarDiasInicio();
+        preencherDias(dias);
+        var menu = document.querySelector(".menu");
+        menu.style.display = "none";
+    }else{
+        //alert("Somente números né =D");
+    }
+}
+function callMonth(obj){
+    var teste = obj.getAttribute("id");
+    data.setMonth(teste);
+    alterarDiasMes(data.getMonth());
+    limparDias();
+    mudarTitulo(data.getMonth());
+    verificarDiasInicio();
+    preencherDias(dias);
+    var menu = document.querySelector(".menu");
+    menu.style.display = "none";
+
+}
+/// Ruan Barroso
+</script>
+</html>

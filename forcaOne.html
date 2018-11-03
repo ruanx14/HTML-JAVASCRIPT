@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ruan Barroso">
+    <title>Forca</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+}
+body{
+    background-color: rgb(32, 32, 46);
+}
+main{
+    width: 1300px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+h1,h2{
+    display: block;
+    width: 1300px;
+    font-size: 35px;
+    text-shadow: 4px 4px 40px black;
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+}
+.quadrado{
+    border: 1px solid black;
+    height: 130px;
+    width: 90px;
+    position: relative;
+    transition: all 1s;
+    transform-style: preserve-3d;
+    box-shadow: 2px 2px 20px white;
+}
+.acaso{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.back{
+    transform: rotateY(180deg);
+    background: linear-gradient(rgb(23, 16, 36),rgb(42, 28, 63));
+    font-size: 80px;
+    font-weight: bolder;
+    font-family: algerian;
+    line-height: 130px;
+    text-align: center;
+    color: white;
+    text-shadow: 4px 4px rgb(68, 68, 68);
+}
+.front{
+    color: white;
+    text-shadow: 4px 4px black;
+    font-size: 80px;
+    line-height: 130px;
+    text-align: center;
+    background-color: rgb(95, 99, 97);
+}
+.rotate{
+    transform: rotateY(180deg);
+}
+section{
+    text-align: center;
+    width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+section input[type=button]{
+    color: black;
+    background: linear-gradient(#686866,grey);
+    border-radius: 5px;
+    height: 70px;
+    width: 300px;
+    border: 1px solid white;
+    box-shadow: 2px 2px 2px black;
+}
+section input[type=button]:hover{
+    cursor: pointer;
+    border: 1px solid black;
+    background: linear-gradient(grey,#494949);
+    box-shadow: 4px 4px 5px black;
+    transition: all 1s;
+}
+section input{
+    box-shadow: 4px 4px 5px black;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 50px;
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+section input:focus{
+    background-color: rgb(194, 190, 190);
+    box-shadow: 4px 4px 5px rgb(255, 255, 255);
+    transition: all 1s;
+}
+.word{
+    width: 400px;
+    font-size: 40px;
+}
+/*Ruan Barroso*/
+</style>
+<body>
+<h1></h1>
+<h2></h2>
+<main>
+</main>
+<section>
+</section>
+<!--Ruan Barroso-->
+</body>
+<script>
+var palavras = new Array("RUAN","MACACO","ABACAXI","LUCAS","ALYSSON","PIROCA","AVADAQUEDAVRA","BUCETA","NAMORADA","DEMOCRACIA","ESPONJA","ABSORVENTE","ESPIRITO","COMPUTADOR","CELULAR","DIAMANTE","MINECRAFT",
+"PICARETA","PISTOLA");
+var corpo = document.querySelector("main");
+var btn = document.createElement("input");
+var text = document.createElement("input");
+var word = document.createElement("input");
+var tent = document.querySelector("h2");
+var tentativas = 6;
+var letter = new Array();
+var tamanho = palavras.length;
+var numero = parseInt(Math.random()*tamanho);
+window.onload = function(){
+    console.log(palavras[numero]);
+    letras = palavras[numero].length;
+    var titulo = document.querySelector("h1");
+    titulo.innerHTML = `Palavra com ${letras} letras`;
+    attTitulo();
+    for(var i=0;i<letras;i++){
+        var div = document.createElement("div");
+        div.setAttribute("class","quadrado");
+        corpo.appendChild(div);
+        var back = document.createElement("div");
+        back.setAttribute("class","acaso back");
+        back.innerHTML = palavras[numero].charAt(i);
+        div.appendChild(back);
+        var front = document.createElement("div");
+        front.setAttribute("class","acaso front");
+        front.innerHTML = "?";
+        div.appendChild(front);
+        letter.push(false);
+    }
+        btn.setAttribute("type","button");
+        btn.setAttribute("value","TENTAR!");
+        text.setAttribute("placeholder","LETRA");
+        word.setAttribute("placeholder","PALAVRA?(1 TRY)");
+        word.setAttribute("class","word");
+        element = document.querySelector("section") ;
+        element.appendChild(btn);
+        element.appendChild(text);
+        element.appendChild(word); 
+        alert("Bem vindo a forca!!!\nVocê tem 5 tentativas por letra, se acertar não conta.\nVocê tem 1 tentativa por palavra. by:Ruan!!");
+}
+virar = (obj) => {
+    var div = document.getElementsByClassName("quadrado")[obj];
+    div.classList.toggle("rotate");
+}
+attTitulo = () => {
+    tentativas = tentativas - 1;
+    tent.innerHTML = `Você tem ${tentativas} tentativas ainda`;
+    if(tentativas<=0){
+        alert("Você errou e perdeu todas as chances =(");
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+    }
+}
+verificar = (obj) => {
+    var str = text.value;
+    for(var i=0;i<palavras[numero].length;i++){
+        if(str==palavras[numero].charAt(i)){
+            if(letter[i]==false){
+                virar(i);
+                letter[i] = true;
+                text.value = "";
+            }
+        }
+    }
+    for(var i=0;i<palavras[numero].length;i++){
+        if(str==palavras[numero].charAt(i)){
+            return true;
+        }
+    }
+}
+btn.onclick = () => {
+    if(word.value==""){
+        if(word.value=="" && text.value==""){
+            alert("preenche algo ae =D");
+        }else{
+            if(!verificar()){
+                attTitulo();
+            }
+        }
+    }else{
+        if(word.value==palavras[numero]){
+            for(var i=0;i<palavras[numero].length;i++){
+                if(letter[i]==false){
+                virar(i);
+                }
+            }
+            alert("PARABENS, VOCÊ ACERTOU !");
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }else{
+            alert("Você errou e perdeu todas as chances =(");
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+    }
+}
+word.oninput = () => {
+    text.value = "";
+    word.value = word.value.toUpperCase();
+}
+text.oninput = () => {
+    text.value = text.value.toUpperCase();
+    word.value = "";
+    if(text.value.length>1){
+        text.value = "";
+        alert("Só uma por vez amigo =D");
+    }
+}
+//Ruan Barroso
+</script>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Ruan Barroso">
+    <title>Memory Game</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(12, 161, 215);
+}
+.cartas{
+    width: 800px;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+.model{
+    width: 98px;
+    border: 1px solid rgba(0,0,0,0.8);
+    position: relative;
+    cursor: pointer;
+    /*Coisas daqui pra baixo são novas*/
+    transition: transform 0.4s;  
+    transform-style: preserve-3d; 
+}
+.showoff{
+    height: 100%; 
+    width: 100%;  
+    /*Coisas daqui pra baixo são novas*/
+    backface-visibility: hidden;
+    position: absolute; 
+}
+.carta{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 52, 52);
+    color: black;
+    font-family: algerian;
+    font-size: 75px;
+    text-align: center;
+}
+.back{ 
+    background-color: rgb(190, 190, 190);
+    color: black;
+    font-family: algerian;
+    font-size: 80px;
+    text-align: center;
+    border: none;
+    /*Coisas daqui pra baixo são novas*/
+    transform-style: preserve-3d; 
+    transition: all 0.4s linear;   
+    transform: rotateY(180deg);
+}
+.model.rotate{
+    transform: rotateY(180deg); 
+}
+.info{
+    margin: 0 auto;
+    width: 800px;
+    height: 100px;
+    display: flex;
+}   
+.infoc{
+    margin: 0 auto;
+    width: 85%;
+    display: block;
+    height: 50px;
+    background-color: rgb(61, 60, 60);;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+label{
+    font-size: 20px;
+    font-weight: bolder;
+    margin: 0 auto;
+}
+/*Ruan Barroso*/
+</style>
+<body>
+<section class="corpo">
+    <section class="cartas">
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?                           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+           <input type="button" class="showoff carta">        
+            <span class="showoff back">
+                ?           
+            </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+        </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?           
+                </span>
+            </article>
+        <article class="model" onclick="porraToda(this)">
+               <input type="button" class="showoff carta">            
+                <span class="showoff back">
+                    ?         
+                </span>
+        </article>        
+</section>
+        <div class="info">
+            <label>Placar
+                <input class="display1 infoc" title="Peças Montadas" type="text" value="0" disabled>
+            </label>
+            <label>Jogadas feitas
+                <input class="display2 infoc" title="Jogadas feitas" type="text" value="0" disabled>
+            </label>
+            <label>Tempo
+                <input class="display3 infoc" title="Tempo em minutos:segundos" type="text" value="0" disabled>
+            </label>
+        </div>
+</section>   
+<!--Ruan Barroso--> 
+</body>
+<script>
+var numeros = new Array();
+var virados = new Array();
+var opcao1 = "null";
+var opcao2 = "null";
+var index1 = "null";
+var index2 = "null";
+var placar = document.getElementsByClassName("infoc")[0];
+var clicados = document.getElementsByClassName("infoc")[1];
+var tempo = document.getElementsByClassName("infoc")[2];
+window.onload = function(){ 
+    criarNumeros();
+    for(var i=0;i<numeros.length;i++){ 
+    embaralharNumeros(parseInt(Math.random()*48),parseInt(Math.random()*48),numeros);
+    }
+    preencherCartas();
+    esconderCartas();  
+    setInterval("subirTime()",1000);
+    //console.log(numeros);
+}
+function preencherCartas(){
+    for(var i=0;i<48;i++){
+        campo = document.querySelectorAll("input")[i];
+        campo2 = document.querySelectorAll("article")[i];
+        campo.value = numeros[i];
+        campo2.id = i+" "+numeros[i];        
+    }
+}
+
+function temNumero(num,ran){
+    for(var i=0;i<24;i++){
+      if(ran==num[i]){
+          return true;
+      }  
+    }
+}
+
+function criarNumeros(){ 
+    var numeros2 = new Array(); 
+    for(var i=0;i<24;i++){
+      ran = parseInt(Math.random()*100);
+      if(!temNumero(numeros,ran)){
+          numeros.push(ran);
+      }else{
+          i=i-1;
+      }  
+    }
+    numeros2 = numeros;
+    numeros = numeros.concat(numeros2);
+}
+
+function embaralharNumeros(num1,num2,array){
+    var num3;
+    num3 = array[num1];
+    num4 = array[num2];
+    array[num2] = num3;
+    array[num1] = num4;
+}
+
+function esconderCartas(){
+    for(var i=0;i<48;i++){
+        campo = document.querySelectorAll("input")[i];
+        campoEscondido = document.querySelectorAll("span")[i];
+        campo.setAttribute("class","showoff back");
+        campoEscondido.setAttribute("class","showoff carta");
+    }  
+}
+
+function verificarEspaco(num,tanto){
+    for(var i=0;i<=tanto;i++){
+        if(" "==num.charAt(i)){
+            return i;
+        }
+    }
+}
+
+function verificandoNumeros(){
+    if(!isNaN(opcao1) && !isNaN(index1) && !isNaN(opcao2) && !isNaN(index2)){
+            return true;
+    }
+}
+
+function virar(nem){
+    elemento = document.querySelectorAll("article")[nem];
+    elemento.classList.toggle('rotate');
+}
+
+function testarNumeros(num1,num2,in1,in2){
+    if(num1==num2 && in1!=in2){
+        virados[in1] = true;
+        virados[in2] = true;
+        placar.value = parseInt(placar.value) + parseInt(1);
+        return true;
+    }
+}
+
+function verificarVirados(index1){
+    if(virados[index1]==true){
+        return true;
+    }
+}
+
+function clean(){
+    opcao1 = "null";
+    opcao2 = "null";
+    index1 = "null";
+    index2 = "null";
+}
+function verificarFim(){
+    pares = 0;
+    for(var i=0;i<virados.length;i++){
+        if(virados[i]==true){
+            pares+=1;
+        }
+    }
+    if(pares==48){
+        return true;
+    }
+    //console.log(pares);
+}
+function subirTime(){
+    tempo.value = parseInt(tempo.value) + parseInt(1);
+}
+function porraToda(obj){
+    valores = obj.getAttribute("id");
+    if(!verificandoNumeros()){
+        if(opcao1=="null" && index1=="null" && opcao2=="null" && index2=="null"){
+            if(valores.length==5){
+                index1 = valores.substr(0,2);
+                opcao1 = valores.substr(3,5);
+            }else if(valores.length==4){
+                if(verificarEspaco(valores,valores.length)==1){
+                index1 = valores.substr(0,1);
+                opcao1 = valores.substr(2,4);
+                }else if(verificarEspaco(valores,valores.length)==2){
+                index1 = valores.substr(0,2);
+                opcao1 = valores.substr(3,4);
+                }
+            }else if(valores.length==3){
+                index1 = valores.substr(0,1);
+                opcao1 = valores.substr(2,3);
+            } 
+            if(!verificarVirados(index1)){
+            virar(index1);
+            clicados.value = parseInt(clicados.value) + parseInt(1);
+            }else{
+               clean(); 
+            }
+        }else if(opcao2=="null" && index2=="null"){
+            if(valores.length==5){
+                index2 = valores.substr(0,2);
+                opcao2 = valores.substr(3,5);
+            }else if(valores.length==4){
+                if(verificarEspaco(valores,valores.length)==1){
+                index2 = valores.substr(0,1);
+                opcao2 = valores.substr(2,4);
+                }else if(verificarEspaco(valores,valores.length)==2){
+                index2 = valores.substr(0,2);
+                opcao2 = valores.substr(3,4);
+                }
+            }else if(valores.length==3){
+                index2 = valores.substr(0,1);
+                opcao2 = valores.substr(2,3);
+            }
+            if(!verificarVirados(index2)){
+                virar(index2);
+                clicados.value = parseInt(clicados.value) + parseInt(1);
+            }else{
+                virar(index1);
+                clean();
+            }
+        }
+    }else{
+        if(testarNumeros(opcao1,opcao2,index1,index2)){
+            clean();
+        }else{
+            virar(index1);
+            virar(index2);
+            clean();
+        }
+    }
+    //console.log(virados);
+    //console.log(listaIndex); 
+    //alert("opcao1: "+opcao1+"\nopcao2: "+opcao2+"\nindex1: "+index1+"\nindex2: "+index2);  
+    if(verificarFim()){
+        alert("VOCÊEE VENCEUUUUUUUUU PARABENSS!!!!!!!!\n VOCÊ MONTOU TODAS SUAS DUPLAS!! \n SEU NÚMEROS DE JOGADAS FOI: "+clicados.value + "\n SEU TEMPO NO JOGO FOI: " + tempo.value);
+    }
+    return true;
+}
+//Ruan Barroso
+</script>
+</html>

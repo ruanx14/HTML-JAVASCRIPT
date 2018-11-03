@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ruan Barroso">
+    <title>Jogo da velha</title>
+</head>
+<style>
+*{
+    border-spacing: 0;
+}
+body{
+    background-color: rgb(25, 32, 32);
+}
+.container{
+    margin: 0 auto;
+    width: 850px;
+    background-color: grey;
+}
+.space{
+    margin: 0 auto;
+    width: 470px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+div{
+    border: 7px solid black;
+    width: 140px;
+    height: 140px;
+    font-size: 120px;
+    text-shadow: 1px 2px 2px black;
+    line-height: 140px;
+    color: white;
+    text-align: center;
+}
+.info{
+    width: 100%;
+    height: 90px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 40px;
+    color: black;
+    text-shadow: 1px 2px 1px white;
+}
+label{
+    display: block; 
+    color: red;
+}
+#lado0 {
+   border-left: none;
+   border-top: none;
+}
+#lado1 {
+    border-top: none;
+ }
+#lado2 {
+    border-right: none;
+    border-top: none;
+}
+#lado3 {
+    border-left: none;
+}
+#lado5 {
+    border-right: none;
+}
+#lado7 {
+    border-bottom: none;
+}
+#lado8 {
+    border-right: none;
+    border-bottom: none;
+}
+#lado6 {
+    border-left: none;
+    border-bottom: none;
+ }
+
+/*Ruan Barroso*/
+</style>
+<body>
+<main class="container">
+<section class="space">
+</section>
+<section class="info">
+Vez do jogador:<label>O</label>
+</section>
+</main>
+<!--Ruan Barroso-->
+</body>
+<script>
+var corpo = document.getElementsByClassName("space")[0]; 
+window.onload = function(){
+    criarElementos();
+    opt = true;
+}
+criarElementos = () => {
+    for(var i=0;i<9;i++){
+    var div = document.createElement("div");
+    div.setAttribute("id","lado"+i);
+    div.setAttribute("title",i);
+    corpo.appendChild(div);
+    }
+}
+
+corpo.onclick = function(evt){
+    index = evt.srcElement.title;
+    local = document.querySelectorAll("div")[index];
+    cara = document.querySelector("label");
+    if(opt && local.textContent==""){
+        local.style.color = "red";
+        local.innerHTML = "O";  
+        cara.innerHTML = "X";
+        cara.style.color = "blue";
+        opt = false;
+    }else if(opt==false && local.textContent==""){
+        local.style.color = "blue";
+        local.innerHTML = "X";
+        cara.innerHTML = "O";
+        cara.style.color = "red";
+        opt = true;
+    }
+
+if(verificarGanhador() && opt==true){
+        alert("Parabens, você ganhou jogador X");
+        setInterval(() => {
+            window.location.reload();
+        },2000);
+    }else if(verificarGanhador() && opt==false){
+        alert("Parabens, você ganhou jogador O");
+        setInterval(() => {
+            window.location.reload();
+        },2000);
+    }else{
+        if(acabou()){
+            alert("Velhoooooooow, que tal outra?");
+            setInterval(() => {
+                window.location.reload();
+            },2000);
+        }
+    }
+    
+}
+
+verificarGanhador = () => {
+    var pst = new Array();
+    for(var i=0;i<9;i++){
+        pst.push(document.querySelectorAll("div")[i]);
+    }
+    //Verificação Horizontal;
+    if((pst[0].textContent=="X" && pst[1].textContent=="X" && pst[2].textContent=="X") || (pst[0].textContent=="O" && pst[1].textContent=="O" && pst[2].textContent=="O")){
+        return true;
+    }
+    if((pst[3].textContent=="X" && pst[4].textContent=="X" && pst[5].textContent=="X") || (pst[3].textContent=="O" && pst[4].textContent=="O" && pst[5].textContent=="O")){
+        return true;
+    } 
+    if((pst[6].textContent=="X" && pst[7].textContent=="X" && pst[8].textContent=="X") || (pst[6].textContent=="O" && pst[7].textContent=="O" && pst[8].textContent=="O")){
+        return true;
+    }
+    //Verificação Vertical
+    if((pst[0].textContent=="X" && pst[3].textContent=="X" && pst[6].textContent=="X") || (pst[0].textContent=="O" && pst[3].textContent=="O" && pst[6].textContent=="O")){
+        return true;
+    }
+    if((pst[1].textContent=="X" && pst[4].textContent=="X" && pst[7].textContent=="X") || (pst[1].textContent=="O" && pst[4].textContent=="O" && pst[7].textContent=="O")){
+        return true;
+    }
+    if((pst[2].textContent=="X" && pst[5].textContent=="X" && pst[8].textContent=="X") || (pst[2].textContent=="O" && pst[5].textContent=="O" && pst[8].textContent=="O")){
+        return true;
+    }
+    //Verificação Diagonal
+    if((pst[0].textContent=="X" && pst[4].textContent=="X" && pst[8].textContent=="X") || (pst[0].textContent=="O" && pst[4].textContent=="O" && pst[8].textContent=="O")){
+        return true;
+    }
+    if((pst[2].textContent=="X" && pst[4].textContent=="X" && pst[6].textContent=="X") || (pst[2].textContent=="O" && pst[4].textContent=="O" && pst[6].textContent=="O")){
+        return true;
+    }
+}
+acabou = () => {
+    var pst = new Array();
+    cont=0;
+    for(var i=0;i<9;i++){
+        pst.push(document.querySelectorAll("div")[i]);
+    }
+    for(var i=0;i<pst.length;i++){
+        if(!pst[i].textContent==""){
+            cont++;
+        }
+    }
+    if(cont==9){
+        return true;
+    }
+
+}
+
+//Ruan Barroso
+</script>
+</html>
